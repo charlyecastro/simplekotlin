@@ -31,6 +31,9 @@ fun add(num1:Int, num2: Int): Int{
 }
 
 // write a "sub" function that takes two Ints, returns an Int, and subtracts the values
+fun sub(num1: Int, num2: Int): Int{
+    return num1 - num2
+}
 // write a "mathOp" function that takes two Ints and a function (that takes two Ints and returns an Int), returns an Int, and applies the passed-in-function to the arguments
 
 // write a class "Person" with first name, last name and age
@@ -67,17 +70,17 @@ for ( (k,v) in add_tests) {
 }
 println("")
 
-// print("Sub tests: ")
-// val sub_tests = listOf(
-//     Pair(0, 0) to 0,
-//     Pair(2, 1) to 1,
-//     Pair(-2, 2) to -4,
-//     Pair(456, 123) to 333
-// )
-// for ( (k,v) in sub_tests) {
-//     print(if (sub(k.first, k.second) == v) "." else "!")
-// }
-// println("")
+print("Sub tests: ")
+val sub_tests = listOf(
+    Pair(0, 0) to 0,
+    Pair(2, 1) to 1,
+    Pair(-2, 2) to -4,
+    Pair(456, 123) to 333
+)
+for ( (k,v) in sub_tests) {
+    print(if (sub(k.first, k.second) == v) "." else "!")
+}
+println("")
 
 // print("Op tests: ")
 // print(if (mathOp(2, 2, { l,r -> l+r} ) == 4) "." else "!")
