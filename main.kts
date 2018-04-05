@@ -46,19 +46,31 @@ fun mathOp(num1: Int, num2: Int, code: (Int, Int) -> Int): Int {
 // You are to create a standard "POJO"-type class called "Person", which should have three properties (firstName, a String; lastName, a String; and age, an Int), provide a constructor that takes all three properties as arguments, provides an "equals" implementation that tests whether two Persons hold the same values, and an appropriate "hashCode" implementation. (See "Effective Java", Item 9, for details if you've never seen this before.) Define a read-only "debugString" property on it that returns a String containing the Person data in a format like this: "[Person firstName:Ted lastName:Neward age:45]".
 
 // HOW TO MAKE AGE UPDATE
+// EQUAL
+// HASH
 class Person(var firstName : String, var lastName : String, var age : Int) {
 
-    var debugString = "[Person firstName:${firstName} lastName:${lastName} age:${age}]"
+    var debugString =  "[Person firstName:${firstName} lastName:${lastName} age:${age}]"
 }
 
 // write a class "Money"
 
 // The fourth section is to explore classes and operator overloading. Create a class, "Money", that has two properties, "amount" and "currency". "Currency" can be one of "USD", "EUR", "CAN" and "GBP". "Amount" is a standard Int. Define the properties such that "amount" can never be less than zero, and that "currency" can only be one of those four symbols. Define a public method, convert, that takes a String argument for the currency type to convert to, and return a new Money instance with the amount converted. Conversion rates should be as follows: 10 USD converts to 5 GBP; 10 USD converts to 15 EUR; 12 USD converts to 15 CAN. (Make sure you can convert in both directions!) Define the "+" operator on Money to return a new instance of Money that adds the amount, converting the currency to the first (left-hand) Money's currency. So adding (10 USD) + (5 GBP) should return a result in USD. Similarly, adding (5 GBP) + (10 USD) should return the result in GBP.
 
-class Money(var amount : String, var currency : String, var age : Int) {
-    
-}
+class Money(var amount : Int, var currency : String) {
 
+    val convertMap = hashMapOf("USD" to 10, "EUR" to 15, "GBP" to 5, "CAN" to 15)
+
+    fun convert(newCurrency: String): Money {
+       var newAmount: Int = convertMap[newCurrency]!!
+        return Money(newAmount, newCurrency)
+    }
+
+    operator fun plus(other: Money): Money {
+       var updatedCurr = other.convert(currency)
+    return Money(amount + updatedCurr.amount, currency)
+    }
+}
 
 // ============ DO NOT EDIT BELOW THIS LINE =============
 
@@ -117,30 +129,31 @@ p1.age = 48
 print(if (p1.debugString == "[Person firstName:Ted lastName:Neward age:48]") "." else "!")
 println("")
 
-// print("Money tests: ")
-// val tenUSD = Money(10, "USD")
-// val twelveUSD = Money(12, "USD")
-// val fiveGBP = Money(5, "GBP")
-// val fifteenEUR = Money(15, "EUR")
-// val fifteenCAN = Money(15, "CAN")
-// val convert_tests = listOf(
-//     Pair(tenUSD, tenUSD),
-//     Pair(tenUSD, fiveGBP),
-//     Pair(tenUSD, fifteenEUR),
-//     Pair(twelveUSD, fifteenCAN),
-//     Pair(fiveGBP, tenUSD),
-//     Pair(fiveGBP, fifteenEUR)
-// )
-// for ( (from,to) in convert_tests) {
-//     print(if (from.convert(to.currency).amount == to.amount) "." else "!")
-// }
-// val moneyadd_tests = listOf(
-//     Pair(tenUSD, tenUSD) to Money(20, "USD"),
-//     Pair(tenUSD, fiveGBP) to Money(20, "USD"),
-//     Pair(fiveGBP, tenUSD) to Money(10, "GBP")
-// )
-// for ( (pair, result) in moneyadd_tests) {
-//     print(if ((pair.first + pair.second).amount == result.amount &&
-//               (pair.first + pair.second).currency == result.currency) "." else "!")
-// }
-// println("")
+print("Money tests: ")
+val tenUSD = Money(10, "USD")
+val twelveUSD = Money(12, "USD")
+val fiveGBP = Money(5, "GBP")
+val fifteenEUR = Money(15, "EUR")
+val fifteenCAN = Money(15, "CAN")
+val convert_tests = listOf(
+    Pair(tenUSD, tenUSD),
+    Pair(tenUSD, fiveGBP),
+    Pair(tenUSD, fifteenEUR),
+    Pair(twelveUSD, fifteenCAN),
+    Pair(fiveGBP, tenUSD),
+    Pair(fiveGBP, fifteenEUR)
+)
+for ( (from,to) in convert_tests) {
+    print(if (from.convert(to.currency).amount == to.amount) "." else "!")
+}
+
+val moneyadd_tests = listOf(
+    Pair(tenUSD, tenUSD) to Money(20, "USD"),
+    Pair(tenUSD, fiveGBP) to Money(20, "USD"),
+    Pair(fiveGBP, tenUSD) to Money(10, "GBP")
+)
+for ( (pair, result) in moneyadd_tests) {
+    print(if ((pair.first + pair.second).amount == result.amount &&
+              (pair.first + pair.second).currency == result.currency) "." else "!")
+}
+println("")
