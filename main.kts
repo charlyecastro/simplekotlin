@@ -48,9 +48,14 @@ fun mathOp(num1: Int, num2: Int, code: (Int, Int) -> Int): Int {
 // HOW TO MAKE AGE UPDATE
 // EQUAL
 // HASH
-class Person(var firstName : String, var lastName : String, var age : Int) {
+class Person(val firstName : String, val lastName : String, var age : Int) {
 
-    var debugString =  "[Person firstName:${firstName} lastName:${lastName} age:${age}]"
+    val debugString: String 
+     get() = "[Person firstName:${firstName} lastName:${lastName} age:${age}]"
+
+     fun equals (other: Person): Boolean {
+         return (firstName == other.firstName && lastName == other.lastName)
+     }
 }
 
 // write a class "Money"
