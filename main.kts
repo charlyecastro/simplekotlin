@@ -45,9 +45,6 @@ fun mathOp(num1: Int, num2: Int, code: (Int, Int) -> Int): Int {
 
 // You are to create a standard "POJO"-type class called "Person", which should have three properties (firstName, a String; lastName, a String; and age, an Int), provide a constructor that takes all three properties as arguments, provides an "equals" implementation that tests whether two Persons hold the same values, and an appropriate "hashCode" implementation. (See "Effective Java", Item 9, for details if you've never seen this before.) Define a read-only "debugString" property on it that returns a String containing the Person data in a format like this: "[Person firstName:Ted lastName:Neward age:45]".
 
-// HOW TO MAKE AGE UPDATE
-// EQUAL
-// HASH
 class Person(val firstName : String, val lastName : String, var age : Int) {
 
     val debugString: String 
