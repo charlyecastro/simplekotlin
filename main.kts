@@ -34,7 +34,11 @@ fun add(num1:Int, num2: Int): Int{
 fun sub(num1: Int, num2: Int): Int{
     return num1 - num2
 }
+
 // write a "mathOp" function that takes two Ints and a function (that takes two Ints and returns an Int), returns an Int, and applies the passed-in-function to the arguments
+fun mathOp(num1: Int, num2: Int, code: (Int, Int) -> Int): Int {
+   return code(num1, num2)
+}
 
 // write a class "Person" with first name, last name and age
 
@@ -82,12 +86,12 @@ for ( (k,v) in sub_tests) {
 }
 println("")
 
-// print("Op tests: ")
-// print(if (mathOp(2, 2, { l,r -> l+r} ) == 4) "." else "!")
-// print(if (mathOp(2, 2, ::add ) == 4) "." else "!")
-// print(if (mathOp(2, 2, ::sub ) == 0) "." else "!")
-// print(if (mathOp(2, 2, { l,r -> l*r} ) == 4) "." else "!")
-// println("")
+print("Op tests: ")
+print(if (mathOp(2, 2, { l,r -> l+r} ) == 4) "." else "!")
+print(if (mathOp(2, 2, ::add ) == 4) "." else "!")
+print(if (mathOp(2, 2, ::sub ) == 0) "." else "!")
+print(if (mathOp(2, 2, { l,r -> l*r} ) == 4) "." else "!")
+println("")
 
 
 // print("Person tests: ")
